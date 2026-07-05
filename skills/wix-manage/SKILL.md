@@ -1,6 +1,6 @@
 ---
 name: wix-manage
-description: "Wix business solution management recipes — REST API operations for configuring and managing Wix business solutions. Routes to: stores, bookings, get-paid, CMS, contacts, forms, media, app-installation, pricing-plans, restaurants, rich-content, sites, blog, calendar, domains, site-properties, ecommerce."
+description: "Wix business solution management recipes — REST API operations for configuring and managing Wix business solutions. Routes to: stores, bookings, get-paid, CMS, contacts, forms, media, app-installation, pricing-plans, restaurants, rich-content, sites, blog, calendar, domains, site-properties, ecommerce, social media, marketing plans."
 compatibility: Requires Wix REST API access (API key or OAuth).
 ---
 
@@ -63,6 +63,9 @@ These recipes do NOT cover frontend development or SDK usage for displaying data
 
 ### [Create Course Service](references/bookings/create-course-service.md)
 **Technical:** Use when the user wants to create a multi-session course — e.g. "create a 6-week workshop", "set up a training program for $300". Handles group capacity, full-course pricing, and fixed series via bulkCreateServices API.
+
+### [Diagnose Bookings Availability Issues](references/bookings/diagnose-availability-issues.md)
+**Technical:** Use when an appointment-based service has no bookable time slots / "customers can't book". Runs the DiagnoseAvailability endpoint (`POST /v2/time-slots/diagnose`) for ordered, machine-readable reason codes with suggested owner actions, and falls back to ListAvailabilityTimeSlots when the endpoint is inconclusive.
 
 ### [End-to-End Booking Flow](references/bookings/end-to-end-booking-flow.md)
 **Technical:** Complete booking flow from service discovery to payment. Query services, check availability with Time Slots V2, create bookings, and process payment via eCommerce checkout.
@@ -184,6 +187,13 @@ These recipes do NOT cover frontend development or SDK usage for displaying data
 
 ---
 
+## Marketing Plan
+
+### [Generate a Marketing Plan and Schedule Its Posts](references/marketing-plan/generate-and-publish-marketing-plan.md)
+**Technical:** Generates a site's AI social media marketing plan (a calendar of marketing activities, each with per-channel post drafts) via the Marketing Plan API, then schedules the drafts for publishing. Covers optional marketing settings (goal, channels, tone, frequency, content pillars), asynchronous generation with polling until `ACTIVE`, scheduling `DRAFT` posts (only for channels connected through the Publisher), and generating posts for additional activities. Use for "generate a marketing plan", "create a social media plan/calendar", or "schedule my plan's posts".
+
+---
+
 ## Media
 
 ### [Upload Media to Wix](references/media/upload-media-to-wix.md)
@@ -213,6 +223,9 @@ These recipes do NOT cover frontend development or SDK usage for displaying data
 ### [Ricos Converter Service](references/rich-content/ricos-converter-service.md)
 **Technical:** Validates and converts content between Ricos documents and HTML/Markdown/plain text using the Ricos Documents API. Covers plugin configuration, format conversion in both directions, and document validation.
 
+### [Author Ricos Rich Content](references/rich-content/author-ricos-rich-content.md)
+**Technical:** Hand-authoring valid Ricos rich-content JSON (the richContent/nodes tree) reused across Blog, Stores, Events, and CMS. Covers every common node shape — paragraphs, headings, lists, blockquotes, dividers, tables with cell fills, code blocks, images — plus inline text decorations and the nesting rules the format enforces.
+
 ---
 
 ## Site Properties
@@ -229,6 +242,13 @@ These recipes do NOT cover frontend development or SDK usage for displaying data
 
 ### [Query Sites](references/sites/query-sites.md)
 **Technical:** Lists and queries all sites associated with a Wix account using Sites API. Covers pagination with cursor-based navigation.
+
+---
+
+## Social Media
+
+### [Create and Publish a Social Media Post (with AI generation)](references/social-media/create-and-publish-social-post.md)
+**Technical:** Creates and publishes — or schedules — a social media post to a connected channel (Instagram, Facebook, LinkedIn, TikTok, Pinterest, YouTube, Google Business Profile) via the Publisher API. Optionally generates the whole post from a free-text idea or the site's own assets (products, blog posts, events, bookings, coupons, categories), generates caption/title suggestions, and edits an existing image with AI. Verifies the channel is connected (and runs the OAuth connect flow if not), checks premium publishing quota, creates a draft item, then publishes it immediately or schedules it for a future date. Use when the user wants to create, generate, write, post, or schedule a social post (e.g. "post this to Instagram", "make a post from my product", "write a caption", "schedule a post").
 
 ---
 
